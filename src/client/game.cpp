@@ -56,8 +56,8 @@ void Game::resetGameStates()
     m_seq = 0;
     m_ping = -1;
     m_canReportBugs = false;
-    m_fightMode = Otc::FightBalanced;
-    m_chaseMode = Otc::DontChase;
+    m_fightMode = Otc::FightOffensive;
+    m_chaseMode = Otc::ChaseOpponent;
     m_pvpMode = Otc::WhiteDove;
     m_safeFight = true;
     m_followingCreature = nullptr;
