@@ -24,8 +24,8 @@ skillCircleFront = nil
 
 optionPanel = nil
 
-isHealthCircle = not g_settings.getBoolean('healthcircle_hpcircle')
-isManaCircle = not g_settings.getBoolean('healthcircle_mpcircle')
+isHealthCircle = g_settings.getBoolean('healthcircle_hpcircle')
+isManaCircle = g_settings.getBoolean('healthcircle_mpcircle')
 isExpCircle = g_settings.getBoolean('healthcircle_expcircle')
 isSkillCircle = g_settings.getBoolean('healthcircle_skillcircle')
 skillTypes = g_settings.getNode('healthcircle_skilltypes')

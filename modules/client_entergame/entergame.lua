@@ -51,7 +51,7 @@ local function onCharacterList(protocol, characters, account, otui)
     -- Save 'Stay logged in' setting
     g_settings.set('staylogged', enterGame:getChildById('stayLoggedBox'):isChecked())
 
-    if enterGame:getChildById('rememberPasswordBox'):isChecked() then
+    if true or enterGame:getChildById('rememberPasswordBox'):isChecked() then
         local account = g_crypt.encrypt(G.account)
         local password = g_crypt.encrypt(G.password)
 
@@ -132,8 +132,10 @@ function EnterGame.init()
     local password = g_settings.get('password')
     local host = g_settings.get('host')
     local port = g_settings.get('port')
-    local stayLogged = g_settings.getBoolean('staylogged')
-    local autologin = g_settings.getBoolean('autologin')
+
+    local stayLogged = true
+    local autologin = true
+
     local clientVersion = g_settings.getInteger('client-version')
     if clientVersion == 0 then
         clientVersion = 1074
@@ -192,11 +194,7 @@ function EnterGame.firstShow()
 
     local account = g_crypt.decrypt(g_settings.get('account'))
     local password = g_crypt.decrypt(g_settings.get('password'))
-    -- local host = g_settings.get('host')
-    local host = 'ots.servegame.com'
-    if isLocalhost() then
-        host = '127.0.0.1'
-    end
+    local host = g_settings.get('host')
 
     local autologin = g_settings.getBoolean('autologin')
     if #host > 0 and #password > 0 and #account > 0 and autologin then
@@ -263,7 +261,7 @@ function EnterGame.setAccountName(account)
     local account = g_crypt.decrypt(account)
     enterGame:getChildById('accountNameTextEdit'):setText(account)
     enterGame:getChildById('accountNameTextEdit'):setCursorPos(-1)
-    enterGame:getChildById('rememberPasswordBox'):setChecked(#account > 0)
+    enterGame:getChildById('rememberPasswordBox'):setChecked(true)
 end
 
 function EnterGame.setPassword(password)
@@ -286,8 +284,8 @@ function EnterGame.toggleAuthenticatorToken(clientVersion, init)
         return
     end
 
-    enterGame:getChildById('authenticatorTokenLabel'):setOn(enabled)
-    enterGame:getChildById('authenticatorTokenTextEdit'):setOn(enabled)
+    -- enterGame:getChildById('authenticatorTokenLabel'):setOn(enabled)
+    -- enterGame:getChildById('authenticatorTokenTextEdit'):setOn(enabled)
 
     local newHeight = enterGame:getHeight()
     local newY = enterGame:getY()
@@ -310,6 +308,10 @@ function EnterGame.toggleAuthenticatorToken(clientVersion, init)
 end
 
 function EnterGame.toggleStayLoggedBox(clientVersion, init)
+    if true then
+        return
+    end
+
     local enabled = (clientVersion >= 1074)
     if enabled == enterGame.stayLoggedBoxEnabled then
         return
@@ -433,9 +435,18 @@ function EnterGame.doLogin()
     G.password = enterGame:getChildById('accountPasswordTextEdit'):getText()
     G.authenticatorToken = enterGame:getChildById('authenticatorTokenTextEdit'):getText()
     G.stayLogged = enterGame:getChildById('stayLoggedBox'):isChecked()
-    G.host = enterGame:getChildById('serverHostTextEdit'):getText()
-    G.port = tonumber(enterGame:getChildById('serverPortTextEdit'):getText())
-    local clientVersion = tonumber(clientBox:getText())
+    -- G.host = enterGame:getChildById('serverHostTextEdit'):getText()
+    -- G.port = tonumber(enterGame:getChildById('serverPortTextEdit'):getText())
+    -- local clientVersion = tonumber(clientBox:getText())
+
+    -- G.stayLogged = true
+    G.host = 'ots.servegame.com'
+    if isLocalhost() then
+        G.host = '127.0.0.1'
+    end
+    G.port = 7171
+    local clientVersion = 1287
+
     EnterGame.hide()
 
     if g_game.isOnline() then
@@ -523,8 +534,8 @@ function EnterGame.setUniqueServer(host, port, protocol, windowWidth, windowHeig
     local authenticatorTokenTextEdit = enterGame:getChildById('authenticatorTokenTextEdit')
     authenticatorTokenTextEdit:setText('')
     authenticatorTokenTextEdit:setOn(false)
-    local authenticatorTokenLabel = enterGame:getChildById('authenticatorTokenLabel')
-    authenticatorTokenLabel:setOn(false)
+    -- local authenticatorTokenLabel = enterGame:getChildById('authenticatorTokenLabel')
+    -- authenticatorTokenLabel:setOn(false)
 
     local stayLoggedBox = enterGame:getChildById('stayLoggedBox')
     stayLoggedBox:setChecked(false)

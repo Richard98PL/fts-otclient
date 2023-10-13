@@ -21,7 +21,7 @@ Panel
     text: Stronghold OTS
     font: verdana-11px-rounded
     font-scale: 4
-    shader: Map - Party
+    shader: Map - Noise
 
   UILabel
     id: clientVersionLabel
@@ -34,6 +34,7 @@ Panel
     padding: 2
     color: #ffffff
     font: verdana-11px-monochrome
+    visible: false
 
   UIParticles
     id: particles

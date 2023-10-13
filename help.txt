@@ -1,0 +1,22 @@
+non cache during development
+
+bool ResourceManager::setupUserWriteDir(const std::string& appWriteDirName)
+{
+    const std::string userDir = getUserDir();
+    std::string dirName;
+#ifndef WIN32
+    dirName = stdext::format(".%s", appWriteDirName);
+#else
+    dirName = appWriteDirName;
+#endif
+    const std::string writeDir = userDir + dirName;
+
+    if (!PHYSFS_setWriteDir(writeDir.c_str())) {
+        if (!PHYSFS_setWriteDir(userDir.c_str()) || !PHYSFS_mkdir(dirName.c_str())) {
+            g_logger.error(stdext::format("Unable to create write directory '%s': %s", writeDir, PHYSFS_getErrorByCode(PHYSFS_getLastErrorCode())));
+            return false;
+        }
+    }
+    return true;
+    //return setWriteDir(writeDir);
+}

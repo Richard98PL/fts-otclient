@@ -1,6 +1,6 @@
 EnterGameWindow < MainWindow
   !text: tr('Login to Stronghold OTS')
-  size: 236 220
+  size: 236 195
   draggable: false
 
 EnterGameButton < Button
@@ -55,14 +55,14 @@ EnterGameWindow
     anchors.top: prev.bottom
     margin-top: 2
 
-  // MenuLabel
-  //   id: authenticatorTokenLabel
-  //   !text: tr('Authenticator Token')
-  //   anchors.left: prev.left
-  //   anchors.top: prev.bottom
-  //   text-auto-resize: true
-  //   margin-top: -12
-  //   visible: false
+  MenuLabel
+    id: authenticatorTokenLabel
+    !text: tr('Authenticator Token')
+    anchors.left: prev.left
+    anchors.top: prev.bottom
+    text-auto-resize: true
+    margin-top: -12
+    visible: false
 
     $on:
       visible: true
@@ -88,7 +88,7 @@ EnterGameWindow
     anchors.right: parent.right
     anchors.top: prev.bottom
     margin-top: 0
-    margin-top: -16
+    margin-top: 0
     visible: false
 
     $on:

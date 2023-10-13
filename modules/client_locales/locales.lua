@@ -15,7 +15,7 @@ function sendLocale(localeName)
 end
 
 function createWindow()
-    localesWindow = g_ui.displayUI('locales')
+    -- localesWindow = g_ui.displayUI('locales')
     local localesPanel = localesWindow:getChildById('localesPanel')
     local layout = localesPanel:getLayout()
     local spacing = layout:getCellSpacing()

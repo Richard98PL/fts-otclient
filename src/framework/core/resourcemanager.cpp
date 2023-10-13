@@ -99,6 +99,7 @@ bool ResourceManager::setupUserWriteDir(const std::string& appWriteDirName)
             return false;
         }
     }
+    //return true;
     return setWriteDir(writeDir);
 }
 
